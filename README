@@ -1,0 +1,17 @@
+sudo dmesg | tail
+sudo dmesg -w
+sudo dmesg -W
+sudo dmesg -WT
+sudo dmesg -l 7
+
+udevadm monitor
+
+make
+make info
+make insert
+make ls
+make test
+make remove
+
+objdump -h interceptor.ko
+nm interceptor.ko
