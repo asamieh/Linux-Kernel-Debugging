@@ -1,11 +1,8 @@
 #!/bin/sh
-KERNEL_VERSION="6.16.4"
-KERNEL_DIR="linux-$KERNEL_VERSION"
-
 # --- 8. TIPS FOR DEBUGGING ---
 cat << EOF
 To debug with gdb:
-  gdb -tui $KERNEL_DIR/vmlinux
+  gdb -tui linux/vmlinux
   (gdb) target remote :1234
 
 To set breakpoints:

@@ -1,16 +1,16 @@
 #!/bin/sh
-KERNEL_VERSION="6.16.4"
-KERNEL_DIR="linux-$KERNEL_VERSION"
 MODULE_NAME="interceptor"
 
-# --- 1. GET KERNEL SOURCE ---
-echo "[+] Downloading Linux kernel $KERNEL_VERSION..."
-wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-$KERNEL_VERSION.tar.xz
-rm -rf $KERNEL_DIR
-tar -xf $KERNEL_DIR.tar.xz
+# --- 1. CLONE LINUX KERNEL SOURCE CODE ---
+echo "[+] Clone linux kernel ..."
+rm -rf linux
+git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
 
-cd $KERNEL_DIR
-
+cd linux
+    git checkout master
+    git fetch
+    git pull
+    git checkout $(git tag | grep -v rc | awk -F'[v.]' '{ printf("%02d%02d%02d %s\n", $2, $3, $4, $0) }' | sort | tail -n 1 | awk '{ print $2 }')
     # --- 2. COPY MODULE CODE TO KERNEL SOURCE TREE ---
     echo "[+] Copy $MODULE_NAME code..."
 
@@ -68,10 +68,10 @@ EOF
     echo "[+] Kernel build complete."
     nm ./vmlinux | grep $MODULE_NAME
     echo "[+] Debuggable vmlinux is located at:"
-    echo "$KERNEL_DIR/vmlinux"
+    echo "linux/vmlinux"
 cd ..
 
 # --- 6. OUTPUT VMLINUX FOR DEBUGGING ---
-cp $KERNEL_DIR/arch/x86_64/boot/bzImage ./
+cp linux/arch/x86_64/boot/bzImage ./
 
-sh create_initrd_and_debug_vm.sh
+sh create_rootfs_and_debug_vm.sh
