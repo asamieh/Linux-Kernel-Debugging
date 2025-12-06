@@ -1,4 +1,4 @@
-# 1 - download.sh
+# 1 - download.sh (works for ubuntu server 24.04.3)
 #
 # run on identical twin VM (with internet)
 
@@ -12,7 +12,6 @@ sudo apt install --download-only --reinstall \
 	bc \
 	libelf-dev \
 	fakeroot \
-	vim \
 	tmux \
 	gdb \
 	git \
@@ -23,9 +22,8 @@ sudo apt install --download-only --reinstall \
 	kmod \
 	crash \
 	makedumpfile \
-	python3 \
 	linux-buildinfo-$(uname -r)
 
 tar -cJvf packages.tar.xz --transform='s|.*/|packages/|' /var/cache/apt/archives/*.deb
 
-wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.tar.xz
+wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.8.1.tar.xz

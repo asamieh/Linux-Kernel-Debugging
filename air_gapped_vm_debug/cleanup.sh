@@ -1,6 +1,6 @@
 # 3 - cleanup.sh
 
-cd linux-6.18
+cd linux-6.8.1
 	make mrproper
 	cp /boot/config-$(uname -r) .config
 	sed -i "s|debian|/usr/lib/linux/$(uname -r)|g" .config
