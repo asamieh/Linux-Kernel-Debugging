@@ -1,5 +1,5 @@
 #!/bin/sh
-# --- 8. TIPS FOR DEBUGGING ---
+# --- 9. TIPS FOR DEBUGGING ---
 cat << EOF
 To debug with gdb:
   gdb -tui linux/vmlinux
@@ -18,7 +18,7 @@ Then:
   (gdb) c
 EOF
 
-# --- 9. RUN QEMU ---
+# --- 10. RUN QEMU ---
 echo "Lunch minimal Linux busybox ..."
 qemu-system-x86_64 \
     -kernel ./bzImage \

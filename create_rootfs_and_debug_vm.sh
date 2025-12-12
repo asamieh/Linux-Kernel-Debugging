@@ -1,5 +1,15 @@
 #!/bin/sh
-# --- 7. CREATE INITRD.IMG ---
+
+# --- 7. Download busybox ---
+wget https://busybox.net/downloads/busybox-1.36.1.tar.bz2
+tar -vxf busybox-1.36.1.tar.bz2
+cd busybox-1.36.1
+    make defconfig
+    sed -i 's/.*CONFIG_STATIC[^_].*$/CONFIG_STATIC=y/' .config
+    make -j$(nproc)
+cd ..
+
+# --- 8. CREATE INITRD.IMG ---
 echo "[+] Create initramfs.new.gz ..."
 rm -rf rootfs rootfs.newc.gz
 mkdir -p rootfs/bin rootfs/proc rootfs/sys rootfs/dev rootfs/tmp
